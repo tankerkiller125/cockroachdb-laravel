@@ -1,5 +1,5 @@
 # cockroachdb-laravel
-CockroachDB database driver for Laravel 5
+CockroachDB database driver for Laravel 7
 
 ## Usage
 
