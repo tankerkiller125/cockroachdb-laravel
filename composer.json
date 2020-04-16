@@ -2,6 +2,7 @@
     "name": "torbenleuschner/cockroachdb-laravel",
     "description": "CockroachDB driver for Laravel 7.x",
     "keywords": ["cockroach", "cockroachdb", "laravel"],
+    "version": "1.0",
     "type": "package",
     "license": "MIT",
     "authors": [
