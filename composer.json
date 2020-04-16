@@ -1,6 +1,6 @@
 {
-    "name": "nbj/cockroachdb-laravel",
-    "description": "CockroachDB driver for Laravel 5.6",
+    "name": "torbenleuschner/cockroachdb-laravel",
+    "description": "CockroachDB driver for Laravel 7.x",
     "keywords": ["cockroach", "cockroachdb", "laravel"],
     "type": "package",
     "license": "MIT",
@@ -8,6 +8,10 @@
         {
             "name": "Nikolaj Boel Jensen",
             "email": "nbj@cego.dk"
+        },
+        {
+            "name": "Torben Leuschner",
+            "email": "torben@torbenleuschner.de"
         }
     ],
     "require": {},
