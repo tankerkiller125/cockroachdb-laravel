@@ -1,5 +1,5 @@
 {
-    "name": "torbenleuschner/cockroachdb-laravel",
+    "name": "tankerkiller125/cockroachdb-laravel",
     "description": "CockroachDB driver for Laravel 7.x",
     "keywords": ["cockroach", "cockroachdb", "laravel"],
     "version": "1.0",
