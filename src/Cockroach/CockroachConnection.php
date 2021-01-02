@@ -23,9 +23,9 @@ class CockroachConnection extends Connection
     /**
      * Get a schema builder instance for the connection.
      *
-     * @return \Illuminate\Database\Schema\PostgresBuilder
+     * @return CockroachBuilder
      */
-    public function getSchemaBuilder()
+    public function getSchemaBuilder(): CockroachBuilder
     {
         if (is_null($this->schemaGrammar)) {
             $this->useDefaultSchemaGrammar();
@@ -37,9 +37,9 @@ class CockroachConnection extends Connection
     /**
      * Get the default schema grammar instance.
      *
-     * @return \App\Cockroach\Schema\CockroachGrammar
+     * @return \Illuminate\Database\Grammar
      */
-    protected function getDefaultSchemaGrammar()
+    protected function getDefaultSchemaGrammar(): \Illuminate\Database\Grammar
     {
         return $this->withTablePrefix(new SchemaGrammar);
     }
@@ -47,9 +47,9 @@ class CockroachConnection extends Connection
     /**
      * Get the default post processor instance.
      *
-     * @return \Illuminate\Database\Query\Processors\PostgresProcessor
+     * @return CockroachProcessor
      */
-    protected function getDefaultPostProcessor()
+    protected function getDefaultPostProcessor(): CockroachProcessor
     {
         return new CockroachProcessor();
     }
@@ -57,9 +57,9 @@ class CockroachConnection extends Connection
     /**
      * Get the Doctrine DBAL driver.
      *
-     * @return \Doctrine\DBAL\Driver\PDOPgSql\Driver
+     * @return DoctrineDriver
      */
-    protected function getDoctrineDriver()
+    protected function getDoctrineDriver(): DoctrineDriver
     {
         return new DoctrineDriver;
     }

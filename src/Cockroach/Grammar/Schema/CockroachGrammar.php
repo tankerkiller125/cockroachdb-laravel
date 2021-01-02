@@ -41,7 +41,7 @@ class CockroachGrammar extends Grammar
      *
      * @return string|null
      */
-    protected function getPrimaryKeyFields()
+    protected function getPrimaryKeyFields(): ?string
     {
         $columns = collect($this->primaryKeyFields);
 
@@ -65,7 +65,7 @@ class CockroachGrammar extends Grammar
      *
      * @return string
      */
-    public function compileTableExists()
+    public function compileTableExists(): string
     {
         return 'select * from information_schema.tables where table_schema = ? and table_name = ?';
     }
@@ -76,7 +76,7 @@ class CockroachGrammar extends Grammar
      * @param  string  $table
      * @return string
      */
-    public function compileColumnListing($table)
+    public function compileColumnListing($table): string
     {
         return "select column_name from information_schema.columns where table_name = '$table'";
     }
@@ -88,7 +88,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compileCreate(Blueprint $blueprint, Fluent $command)
+    public function compileCreate(Blueprint $blueprint, Fluent $command): string
     {
         return sprintf('%s table %s (%s%s)',
             $blueprint->temporary ? 'create temporary' : 'create',
@@ -105,7 +105,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compileAdd(Blueprint $blueprint, Fluent $command)
+    public function compileAdd(Blueprint $blueprint, Fluent $command): string
     {
         return sprintf('alter table %s %s',
             $this->wrapTable($blueprint),
@@ -120,7 +120,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compilePrimary(Blueprint $blueprint, Fluent $command)
+    public function compilePrimary(Blueprint $blueprint, Fluent $command): ?string
     {
         //$columns = $this->columnize($command->columns);
 
@@ -134,7 +134,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compileUnique(Blueprint $blueprint, Fluent $command)
+    public function compileUnique(Blueprint $blueprint, Fluent $command): string
     {
         return sprintf('alter table %s add constraint %s unique (%s)',
             $this->wrapTable($blueprint),
@@ -150,7 +150,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compileIndex(Blueprint $blueprint, Fluent $command)
+    public function compileIndex(Blueprint $blueprint, Fluent $command): string
     {
         return sprintf('create index %s on %s%s (%s)',
             $this->wrap($command->index),
@@ -167,7 +167,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compileDrop(Blueprint $blueprint, Fluent $command)
+    public function compileDrop(Blueprint $blueprint, Fluent $command): string
     {
         return 'drop table '.$this->wrapTable($blueprint);
     }
@@ -178,7 +178,7 @@ class CockroachGrammar extends Grammar
      * @param  string  $tables
      * @return string
      */
-    public function compileDropAllTables($tables)
+    public function compileDropAllTables($tables): string
     {
         return 'drop table "'.implode('","', $tables).'" cascade';
     }
@@ -189,7 +189,7 @@ class CockroachGrammar extends Grammar
      * @param  string  $schema
      * @return string
      */
-    public function compileGetAllTables($schema)
+    public function compileGetAllTables($schema): string
     {
         return "select tablename from pg_catalog.pg_tables where schemaname = '{$schema}'";
     }
@@ -201,7 +201,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compileDropIfExists(Blueprint $blueprint, Fluent $command)
+    public function compileDropIfExists(Blueprint $blueprint, Fluent $command): string
     {
         return 'drop table if exists '.$this->wrapTable($blueprint);
     }
@@ -213,7 +213,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compileDropColumn(Blueprint $blueprint, Fluent $command)
+    public function compileDropColumn(Blueprint $blueprint, Fluent $command): string
     {
         $columns = $this->prefixArray('drop column', $this->wrapArray($command->columns));
 
@@ -227,7 +227,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compileDropPrimary(Blueprint $blueprint, Fluent $command)
+    public function compileDropPrimary(Blueprint $blueprint, Fluent $command): string
     {
         $index = $this->wrap("{$blueprint->getTable()}_pkey");
 
@@ -241,7 +241,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compileDropUnique(Blueprint $blueprint, Fluent $command)
+    public function compileDropUnique(Blueprint $blueprint, Fluent $command): string
     {
         $index = $this->wrap($command->index);
         $table = $this->wrapTable($blueprint);
@@ -256,7 +256,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compileDropIndex(Blueprint $blueprint, Fluent $command)
+    public function compileDropIndex(Blueprint $blueprint, Fluent $command): string
     {
         return "drop index {$this->wrap($command->index)}";
     }
@@ -268,7 +268,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compileDropForeign(Blueprint $blueprint, Fluent $command)
+    public function compileDropForeign(Blueprint $blueprint, Fluent $command): string
     {
         $index = $this->wrap($command->index);
 
@@ -282,7 +282,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compileRename(Blueprint $blueprint, Fluent $command)
+    public function compileRename(Blueprint $blueprint, Fluent $command): string
     {
         $from = $this->wrapTable($blueprint);
 
@@ -294,7 +294,7 @@ class CockroachGrammar extends Grammar
      *
      * @return string
      */
-    public function compileEnableForeignKeyConstraints()
+    public function compileEnableForeignKeyConstraints(): string
     {
         return 'SET CONSTRAINTS ALL IMMEDIATE;';
     }
@@ -304,7 +304,7 @@ class CockroachGrammar extends Grammar
      *
      * @return string
      */
-    public function compileDisableForeignKeyConstraints()
+    public function compileDisableForeignKeyConstraints(): string
     {
         return 'SET CONSTRAINTS ALL DEFERRED;';
     }
@@ -315,7 +315,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeChar(Fluent $column)
+    protected function typeChar(Fluent $column): string
     {
         return "char({$column->length})";
     }
@@ -326,7 +326,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeString(Fluent $column)
+    protected function typeString(Fluent $column): string
     {
         return "varchar({$column->length})";
     }
@@ -337,7 +337,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeText(Fluent $column)
+    protected function typeText(Fluent $column): string
     {
         return 'text';
     }
@@ -348,7 +348,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeMediumText(Fluent $column)
+    protected function typeMediumText(Fluent $column): string
     {
         return 'text';
     }
@@ -359,7 +359,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeLongText(Fluent $column)
+    protected function typeLongText(Fluent $column): string
     {
         return 'text';
     }
@@ -370,7 +370,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeInteger(Fluent $column)
+    protected function typeInteger(Fluent $column): string
     {
         return $column->autoIncrement ? 'serial' : 'integer';
     }
@@ -381,7 +381,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeBigInteger(Fluent $column)
+    protected function typeBigInteger(Fluent $column): string
     {
         return $column->autoIncrement ? 'bigserial' : 'bigint';
     }
@@ -392,7 +392,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeMediumInteger(Fluent $column)
+    protected function typeMediumInteger(Fluent $column): string
     {
         return $column->autoIncrement ? 'serial' : 'integer';
     }
@@ -403,7 +403,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeTinyInteger(Fluent $column)
+    protected function typeTinyInteger(Fluent $column): string
     {
         return $column->autoIncrement ? 'smallserial' : 'smallint';
     }
@@ -414,7 +414,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeSmallInteger(Fluent $column)
+    protected function typeSmallInteger(Fluent $column): string
     {
         return $column->autoIncrement ? 'smallserial' : 'smallint';
     }
@@ -425,7 +425,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeFloat(Fluent $column)
+    protected function typeFloat(Fluent $column): string
     {
         return $this->typeDouble($column);
     }
@@ -436,7 +436,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeDouble(Fluent $column)
+    protected function typeDouble(Fluent $column): string
     {
         return 'double precision';
     }
@@ -447,7 +447,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeReal(Fluent $column)
+    protected function typeReal(Fluent $column): string
     {
         return 'real';
     }
@@ -458,7 +458,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeDecimal(Fluent $column)
+    protected function typeDecimal(Fluent $column): string
     {
         return "decimal({$column->total}, {$column->places})";
     }
@@ -469,7 +469,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeBoolean(Fluent $column)
+    protected function typeBoolean(Fluent $column): string
     {
         return 'boolean';
     }
@@ -480,7 +480,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeEnum(Fluent $column)
+    protected function typeEnum(Fluent $column): string
     {
         $allowed = array_map(function ($a) {
             return "'{$a}'";
@@ -495,7 +495,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeJson(Fluent $column)
+    protected function typeJson(Fluent $column): string
     {
         return 'json';
     }
@@ -506,7 +506,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeJsonb(Fluent $column)
+    protected function typeJsonb(Fluent $column): string
     {
         return 'jsonb';
     }
@@ -517,7 +517,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeDate(Fluent $column)
+    protected function typeDate(Fluent $column): string
     {
         return 'date';
     }
@@ -528,7 +528,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeDateTime(Fluent $column)
+    protected function typeDateTime(Fluent $column): string
     {
         return 'timestamp without time zone';
     }
@@ -539,7 +539,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeDateTimeTz(Fluent $column)
+    protected function typeDateTimeTz(Fluent $column): string
     {
         return 'timestamp with time zone';
     }
@@ -550,7 +550,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeTime(Fluent $column)
+    protected function typeTime(Fluent $column): string
     {
         return 'time(0) without time zone';
     }
@@ -561,7 +561,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeTimeTz(Fluent $column)
+    protected function typeTimeTz(Fluent $column): string
     {
         return 'time(0) with time zone';
     }
@@ -572,7 +572,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeTimestamp(Fluent $column)
+    protected function typeTimestamp(Fluent $column): string
     {
         if ($column->useCurrent) {
             return 'timestamp without time zone default CURRENT_timestamp';
@@ -587,7 +587,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeTimestampTz(Fluent $column)
+    protected function typeTimestampTz(Fluent $column): string
     {
         if ($column->useCurrent) {
             return 'timestamp with time zone default CURRENT_timestamp';
@@ -602,7 +602,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeBinary(Fluent $column)
+    protected function typeBinary(Fluent $column): string
     {
         return 'bytea';
     }
@@ -613,7 +613,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeUuid(Fluent $column)
+    protected function typeUuid(Fluent $column): string
     {
         return 'uuid';
     }
@@ -624,7 +624,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeIpAddress(Fluent $column)
+    protected function typeIpAddress(Fluent $column): string
     {
         return 'inet';
     }
@@ -635,7 +635,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string
      */
-    protected function typeMacAddress(Fluent $column)
+    protected function typeMacAddress(Fluent $column): string
     {
         return 'macaddr';
     }
@@ -647,7 +647,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string|null
      */
-    protected function modifyNullable(Blueprint $blueprint, Fluent $column)
+    protected function modifyNullable(Blueprint $blueprint, Fluent $column): ?string
     {
         return $column->nullable ? ' null' : ' not null';
     }
@@ -659,7 +659,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string|null
      */
-    protected function modifyDefault(Blueprint $blueprint, Fluent $column)
+    protected function modifyDefault(Blueprint $blueprint, Fluent $column): ?string
     {
         if (! is_null($column->default)) {
             return ' default '.$this->getDefaultValue($column->default);
@@ -673,7 +673,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string|null
      */
-    protected function modifyIncrement(Blueprint $blueprint, Fluent $column)
+    protected function modifyIncrement(Blueprint $blueprint, Fluent $column): ?string
     {
         if (in_array($column->type, $this->serials) && $column->autoIncrement) {
             $this->primaryKeyFields[] = $column;
@@ -683,8 +683,8 @@ class CockroachGrammar extends Grammar
     /**
      * Get the SQL for an primary key column modifier.
      *
-     * @param  \Illuminate\Database\Schema\Blueprint  $blueprint
-     * @param  \Illuminate\Support\Fluent  $column
+     * @param \Illuminate\Database\Schema\Blueprint $blueprint
+     * @param \Illuminate\Support\Fluent $column
      * @return null
      */
     protected function modifyPrimary(Blueprint $blueprint, Fluent $column)

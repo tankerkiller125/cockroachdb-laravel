@@ -23,10 +23,11 @@ class CockroachConnector extends Connector implements ConnectorInterface
     /**
      * Establish a database connection.
      *
-     * @param  array  $config
+     * @param array $config
      * @return \PDO
+     * @throws \Exception
      */
-    public function connect(array $config)
+    public function connect(array $config): PDO
     {
         // First we'll create the basic DSN and connection instance connecting to the
         // using the configuration option specified by the developer. We will also
@@ -57,7 +58,7 @@ class CockroachConnector extends Connector implements ConnectorInterface
      * @param  array  $config
      * @return void
      */
-    protected function configureTimezone($connection, array $config)
+    protected function configureTimezone($connection, array $config): void
     {
         if (isset($config['timezone'])) {
             $timezone = $config['timezone'];

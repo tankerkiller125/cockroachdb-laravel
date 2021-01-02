@@ -4,7 +4,11 @@ namespace Anoixis\Cockroach\Eloquent;
 use Illuminate\Database\Eloquent\Builder as IlluminateBuilder;
 
 class Builder extends IlluminateBuilder {
-    protected function addUpdatedAtColumn(array $values)
+    /**
+     * @param array $values
+     * @return array
+     */
+    protected function addUpdatedAtColumn(array $values): array
     {
         if (! $this->model->usesTimestamps() ||
             is_null($this->model->getUpdatedAtColumn())) {

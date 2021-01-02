@@ -16,6 +16,8 @@
         }
     ],
     "require": {
+        "php": ">=7.3",
+        "ext-pdo": "*",
         "doctrine/dbal": "^3.0.0"
     },
     "autoload": {

@@ -12,7 +12,7 @@ class CockroachBuilder extends Builder
      * @param  string  $table
      * @return bool
      */
-    public function hasTable($table)
+    public function hasTable($table) : bool
     {
         if (is_array($schema = $this->connection->getConfig('schema'))) {
             $schema = head($schema);
@@ -32,7 +32,7 @@ class CockroachBuilder extends Builder
      *
      * @return void
      */
-    public function dropAllTables()
+    public function dropAllTables() : void
     {
         $tables = [];
 
@@ -56,7 +56,7 @@ class CockroachBuilder extends Builder
      *
      * @return array
      */
-    public function getAllTables()
+    public function getAllTables() : array
     {
         return $this->connection->select(
             $this->grammar->compileGetAllTables($this->connection->getConfig('schema'))

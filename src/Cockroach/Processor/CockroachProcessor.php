@@ -10,13 +10,13 @@ class CockroachProcessor extends Processor
     /**
      * Process an "insert get ID" query.
      *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @param  string  $sql
-     * @param  array   $values
-     * @param  string  $sequence
+     * @param \Illuminate\Database\Query\Builder $query
+     * @param string $sql
+     * @param array $values
+     * @param null|string $sequence
      * @return int
      */
-    public function processInsertGetId(Builder $query, $sql, $values, $sequence = null)
+    public function processInsertGetId(Builder $query, $sql, $values, $sequence = null): int
     {
         $result = $query->getConnection()->selectFromWriteConnection($sql, $values)[0];
 
@@ -33,7 +33,7 @@ class CockroachProcessor extends Processor
      * @param  array  $results
      * @return array
      */
-    public function processColumnListing($results)
+    public function processColumnListing($results): array
     {
         return array_map(function ($result) {
             return with((object) $result)->column_name;

@@ -28,7 +28,7 @@ class CockroachGrammar extends Grammar
      * @param  array  $where
      * @return string
      */
-    protected function whereDate(Builder $query, $where)
+    protected function whereDate(Builder $query, $where): string
     {
         $value = $this->parameter($where['value']);
 
@@ -43,7 +43,7 @@ class CockroachGrammar extends Grammar
      * @param  array  $where
      * @return string
      */
-    protected function dateBasedWhere($type, Builder $query, $where)
+    protected function dateBasedWhere($type, Builder $query, $where): string
     {
         $value = $this->parameter($where['value']);
 
@@ -57,7 +57,7 @@ class CockroachGrammar extends Grammar
      * @param  bool|string  $value
      * @return string
      */
-    protected function compileLock(Builder $query, $value)
+    protected function compileLock(Builder $query, $value): string
     {
         if (! is_string($value)) {
             return $value ? 'for update' : 'for share';
@@ -69,7 +69,7 @@ class CockroachGrammar extends Grammar
     /**
      * {@inheritdoc}
      */
-    public function compileInsert(Builder $query, array $values)
+    public function compileInsert(Builder $query, array $values) : string
     {
         $table = $this->wrapTable($query->from);
 
@@ -86,7 +86,7 @@ class CockroachGrammar extends Grammar
      * @param  string  $sequence
      * @return string
      */
-    public function compileInsertGetId(Builder $query, $values, $sequence)
+    public function compileInsertGetId(Builder $query, $values, $sequence) : string
     {
         if (is_null($sequence)) {
             $sequence = 'id';
@@ -102,7 +102,7 @@ class CockroachGrammar extends Grammar
      * @param  array  $values
      * @return string
      */
-    public function compileUpdate(Builder $query, $values)
+    public function compileUpdate(Builder $query, $values) : string
     {
         $table = $this->wrapTable($query->from);
 
@@ -124,7 +124,7 @@ class CockroachGrammar extends Grammar
      * @param  array   $values
      * @return string
      */
-    protected function compileUpdateColumns(Builder $query, $values)
+    protected function compileUpdateColumns(Builder $query, $values) : string
     {
         // When gathering the columns for an update statement, we'll wrap each of the
         // columns and convert it to a parameter value. Then we will concatenate a
@@ -140,7 +140,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Database\Query\Builder  $query
      * @return string|null
      */
-    protected function compileUpdateFrom(Builder $query)
+    protected function compileUpdateFrom(Builder $query) : string
     {
         if (! isset($query->joins)) {
             return '';
@@ -164,7 +164,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Database\Query\Builder  $query
      * @return string
      */
-    protected function compileUpdateWheres(Builder $query)
+    protected function compileUpdateWheres(Builder $query) : string
     {
         $baseWheres = $this->compileWheres($query);
 
@@ -190,7 +190,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Database\Query\Builder  $query
      * @return string
      */
-    protected function compileUpdateJoinWheres(Builder $query)
+    protected function compileUpdateJoinWheres(Builder $query) : string
     {
         $joinWheres = [];
 
@@ -215,7 +215,7 @@ class CockroachGrammar extends Grammar
      * @param  array  $values
      * @return array
      */
-    public function prepareBindingsForUpdate(array $bindings, array $values)
+    public function prepareBindingsForUpdate(array $bindings, array $values) : array
     {
         // Update statements with "joins" in Postgres use an interesting syntax. We need to
         // take all of the bindings and put them on the end of this array since they are
@@ -233,7 +233,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Database\Query\Builder  $query
      * @return array
      */
-    public function compileTruncate(Builder $query)
+    public function compileTruncate(Builder $query) : array
     {
         return ['truncate '.$this->wrapTable($query->from) => []];
     }
@@ -244,7 +244,7 @@ class CockroachGrammar extends Grammar
      * @param  string  $value
      * @return string
      */
-    protected function wrapValue($value)
+    protected function wrapValue($value) : string
     {
         if ($value === '*') {
             return $value;
@@ -266,7 +266,7 @@ class CockroachGrammar extends Grammar
      * @param  string  $value
      * @return string
      */
-    protected function wrapJsonSelector($value)
+    protected function wrapJsonSelector($value) : string
     {
         $path = explode('->', $value);
 
@@ -289,7 +289,7 @@ class CockroachGrammar extends Grammar
      * @param  array  $path
      * @return array
      */
-    protected function wrapJsonPathAttributes($path)
+    protected function wrapJsonPathAttributes($path) : array
     {
         return array_map(function ($attribute) {
             return "'$attribute'";
@@ -301,7 +301,7 @@ class CockroachGrammar extends Grammar
      *
      * @return bool
      */
-    public function supportsSavepoints()
+    public function supportsSavepoints() : bool
     {
         return false;
     }
