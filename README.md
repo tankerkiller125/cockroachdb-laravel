@@ -6,7 +6,7 @@ CockroachDB database driver for Laravel 7
 ### Step 1: Install Through Composer
 
 ```
-composer require nbj/cockroachdb-laravel
+composer require Anoixis/cockroachdb-laravel
 ```
 
 ### Step 2: Add the Service Provider (This happens automatically in Laravel 5.5) 
@@ -14,7 +14,7 @@ composer require nbj/cockroachdb-laravel
 Open `config/app.php` and, to your "providers" array, add:
 
 ```php
-Nbj\Cockroach\CockroachServiceProvider::class
+Anoixis\Cockroach\CockroachServiceProvider::class
 ```
 
 ### Step 3: Add Database Driver Configuration 
@@ -74,7 +74,7 @@ called `illuminate/database` Simply require this package into your project, and
 you are ready to go.
 ```
 composer require illuminate/database
-composer require nbj/cockroachdb-laravel
+composer require Anoixis/cockroachdb-laravel
 ```
 
 To set up a database connection you need to create a new `Capsule` and register it.
@@ -82,8 +82,8 @@ To set up a database connection you need to create a new `Capsule` and register 
 <?php
 
 use Illuminate\Database\Connection;
-use Nbj\Cockroach\CockroachConnector;
-use Nbj\Cockroach\CockroachConnection;
+use Anoixis\Cockroach\CockroachConnector;
+use Anoixis\Cockroach\CockroachConnection;
 use Illuminate\Database\Capsule\Manager as DB;
 
 require 'vendor/autoload.php';

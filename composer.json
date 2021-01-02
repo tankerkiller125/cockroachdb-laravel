@@ -15,7 +15,9 @@
             "email": "torben@torbenleuschner.de"
         }
     ],
-    "require": {},
+    "require": {
+        "doctrine/dbal": "^3.0.0"
+    },
     "autoload": {
         "psr-4": {
             "Anoixis\\": "src/"

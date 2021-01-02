@@ -5,7 +5,7 @@ namespace Anoixis\Cockroach;
 use Illuminate\Database\Connection;
 use Anoixis\Cockroach\Builder\CockroachBuilder;
 use Anoixis\Cockroach\Processor\CockroachProcessor;
-use Doctrine\DBAL\Driver\PDOPgSql\Driver as DoctrineDriver;
+use Doctrine\DBAL\Driver\PDO\PgSQL\Driver as DoctrineDriver;
 use Anoixis\Cockroach\Grammar\Query\CockroachGrammar as QueryGrammar;
 use Anoixis\Cockroach\Grammar\Schema\CockroachGrammar as SchemaGrammar;
 
