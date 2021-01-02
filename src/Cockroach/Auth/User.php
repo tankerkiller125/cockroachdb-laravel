@@ -1,6 +1,6 @@
 <?php
 
-namespace Nbj\Cockroach\Auth;
+namespace Anoixis\Cockroach\Auth;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -9,7 +9,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Nbj\Cockroach\Eloquent\Model;
+use Anoixis\Cockroach\Eloquent\Model;
 
 class User extends Model implements
     AuthenticatableContract,

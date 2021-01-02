@@ -1,6 +1,6 @@
 <?php
 
-namespace Nbj\Cockroach;
+namespace Anoixis\Cockroach;
 
 use PDO;
 use Illuminate\Database\Connectors\Connector;
@@ -73,7 +73,7 @@ class CockroachConnector extends Connector implements ConnectorInterface
      * @param  array  $config
      * @return void
      */
-    protected function configureSchema($connection, $config)
+    protected function configureSchema($connection, $config): void
     {
         if (isset($config['schema'])) {
             $schema = $this->formatSchema($config['schema']);
@@ -88,7 +88,7 @@ class CockroachConnector extends Connector implements ConnectorInterface
      * @param  array|string  $schema
      * @return string
      */
-    protected function formatSchema($schema)
+    protected function formatSchema($schema): ?string
     {
         if (is_array($schema)) {
             return '"'.implode('", "', $schema).'"';
@@ -104,7 +104,7 @@ class CockroachConnector extends Connector implements ConnectorInterface
      * @param  array  $config
      * @return void
      */
-    protected function configureApplicationName($connection, $config)
+    protected function configureApplicationName($connection, $config): void
     {
         if (isset($config['application_name'])) {
             $applicationName = $config['application_name'];
@@ -119,7 +119,7 @@ class CockroachConnector extends Connector implements ConnectorInterface
      * @param  array   $config
      * @return string
      */
-    protected function getDsn(array $config)
+    protected function getDsn(array $config): string
     {
         // First we will create the basic DSN setup as well as the port if it is in
         // in the configuration options. This will give us the basic DSN we will
@@ -147,7 +147,7 @@ class CockroachConnector extends Connector implements ConnectorInterface
      * @param  array  $config
      * @return string
      */
-    protected function addSslOptions($dsn, array $config)
+    protected function addSslOptions($dsn, array $config): string
     {
         foreach (['sslmode', 'sslcert', 'sslkey', 'sslrootcert'] as $option) {
             if (isset($config[$option])) {

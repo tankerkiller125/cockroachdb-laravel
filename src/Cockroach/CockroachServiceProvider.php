@@ -1,6 +1,6 @@
 <?php
 
-namespace Nbj\Cockroach;
+namespace Anoixis\Cockroach;
 
 use Illuminate\Database\Connection;
 use Illuminate\Support\ServiceProvider;

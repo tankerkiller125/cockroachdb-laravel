@@ -1,5 +1,5 @@
 <?php
-namespace Nbj\Cockroach\Eloquent;
+namespace Anoixis\Cockroach\Eloquent;
 
 use Illuminate\Database\Eloquent\Model as IlluminateModel;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Nbj\Cockroach\Processor;
+namespace Anoixis\Cockroach\Processor;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\Processors\Processor;
