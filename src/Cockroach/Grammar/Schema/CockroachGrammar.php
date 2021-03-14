@@ -57,6 +57,7 @@ class CockroachGrammar extends Grammar
             ->unique()
             ->implode(',');
 
+
         return sprintf(', primary key (%s)', $columns);
     }
 
@@ -120,7 +121,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $command
      * @return string
      */
-    public function compilePrimary(Blueprint $blueprint, Fluent $command): ?string
+    public function compilePrimary(Blueprint $blueprint, Fluent $command)
     {
         //$columns = $this->columnize($command->columns);
 
@@ -659,7 +660,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string|null
      */
-    protected function modifyDefault(Blueprint $blueprint, Fluent $column): ?string
+    protected function modifyDefault(Blueprint $blueprint, Fluent $column)
     {
         if (! is_null($column->default)) {
             return ' default '.$this->getDefaultValue($column->default);
@@ -673,7 +674,7 @@ class CockroachGrammar extends Grammar
      * @param  \Illuminate\Support\Fluent  $column
      * @return string|null
      */
-    protected function modifyIncrement(Blueprint $blueprint, Fluent $column): ?string
+    protected function modifyIncrement(Blueprint $blueprint, Fluent $column)
     {
         if (in_array($column->type, $this->serials) && $column->autoIncrement) {
             $this->primaryKeyFields[] = $column;

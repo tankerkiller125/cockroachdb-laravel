@@ -8,8 +8,9 @@ use Anoixis\Cockroach\Processor\CockroachProcessor;
 use Doctrine\DBAL\Driver\PDO\PgSQL\Driver as DoctrineDriver;
 use Anoixis\Cockroach\Grammar\Query\CockroachGrammar as QueryGrammar;
 use Anoixis\Cockroach\Grammar\Schema\CockroachGrammar as SchemaGrammar;
+use Illuminate\Database\PostgresConnection;
 
-class CockroachConnection extends Connection
+class CockroachConnection extends PostgresConnection
 {
     /**
      * Get the default query grammar instance.
@@ -62,5 +63,10 @@ class CockroachConnection extends Connection
     protected function getDoctrineDriver(): DoctrineDriver
     {
         return new DoctrineDriver;
+    }
+
+    public function getSchemaState($files = null, callable $processFactory = null): CockroachState
+    {
+        return new CockroachState($this, $files, $processFactory);
     }
 }
